@@ -1,3 +1,5 @@
+import { isEmpty } from 'lodash'
+
 const CARD_NAME = [
   'A',
   '2',
@@ -77,4 +79,19 @@ export const choseACard = (cards, chosenCard) => {
   })
 
   return newCards
+}
+
+export const getOpponentCards = (playerId, playersHand) => {
+  if (isEmpty(playersHand) || isEmpty(playerId)) return []
+
+  const opponentCards = []
+
+  playersHand.forEach((playerHand) => {
+    const playerHandId = Object.keys(playerHand)[0]
+    if (playerHandId !== playerId) {
+      opponentCards.push(...playerHand[playerHandId])
+    }
+  })
+
+  return opponentCards
 }

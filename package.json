@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "framer-motion": "^10.16.4",
+    "lodash": "^4.17.21",
     "playroomkit": "^0.0.42",
     "pokersolver": "^2.1.4",
     "react": "^18.2.0",

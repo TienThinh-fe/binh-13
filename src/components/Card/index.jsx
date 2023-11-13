@@ -30,6 +30,7 @@ const Card = ({
   name,
   index,
   isPositionFixed = false,
+  isDisabled = false,
   onClickCard = emptyFunction,
 }) => {
   const card = getCardByName(name)
@@ -41,7 +42,7 @@ const Card = ({
   return (
     <Wrapper
       index={index}
-      whileHover={{ y: -10 }}
+      whileHover={isDisabled ? null : { y: -10 }}
       transition={{ stiffness: 300 }}
       isPositionFixed={isPositionFixed}
       onClick={handleClick}
@@ -56,6 +57,7 @@ Card.propTypes = {
   index: PropTypes.number,
   isPositionFixed: PropTypes.bool,
   onClickCard: PropTypes.func,
+  isDisabled: PropTypes.bool,
 }
 
 export default Card
