@@ -4,7 +4,6 @@ import Card from '../Card'
 import EmptySlot from '../EmptySlot'
 import { useState, useEffect } from 'react'
 import { useCardStore } from '../../stores'
-import { myShuffleCards } from './helpers'
 import { choseACard } from '../../utils'
 
 const Wrapper = styled.div`
@@ -15,7 +14,10 @@ const Wrapper = styled.div`
 `
 
 const MyCards = () => {
-  const [myCards, setMyCards] = useState(myShuffleCards)
+  const [myCards, setMyCards] = useCardStore((state) => [
+    state.myCards,
+    state.setMyCards,
+  ])
   const [width, setWidth] = useState(window.innerWidth * 0.6)
   const [chosenCards, setChosenCards] = useCardStore((state) => [
     state.chosenCards,

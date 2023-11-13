@@ -1,11 +1,12 @@
 import { myPlayer, useMultiplayerState } from 'playroomkit'
 import PropTypes from 'prop-types'
+import { useState } from 'react'
 import styled from 'styled-components'
 import { useCardStore } from '../../stores'
 import Card from '../Card'
 import EmptySlot from '../EmptySlot'
 import OpponentCards from '../OpponentCards'
-import { useState } from 'react'
+import { unChoseACard } from '../../utils'
 
 const Wrapper = styled.div`
   width: 40%;
@@ -55,7 +56,15 @@ const Button = styled.button`
 `
 
 const ChosenCards = () => {
-  const chosenCards = useCardStore((state) => state.chosenCards)
+  const [myCards, setMyCards] = useCardStore((state) => [
+    state.myCards,
+    state.setMyCards,
+  ])
+
+  const [chosenCards, setChosenCards] = useCardStore((state) => [
+    state.chosenCards,
+    state.setChosenCards,
+  ])
   const [isCompleted, setIsCompleted] = useState(false)
 
   const emptySlots = Array(5 - chosenCards.length).fill(null)
@@ -73,11 +82,28 @@ const ChosenCards = () => {
     setIsCompleted(true)
   }
 
+  const handleClickMyCard = (card) => {
+    const newChosenCards = chosenCards.filter((chosenCard) => {
+      return chosenCard.name !== card.name
+    })
+
+    const newMyCards = unChoseACard(myCards, card)
+
+    setChosenCards(newChosenCards)
+    setMyCards(newMyCards)
+  }
+
   return (
     <Wrapper>
       <Container>
         {chosenCards.map((card, index) => (
-          <Card key={index} {...card} index={index} isPositionFixed />
+          <Card
+            key={index}
+            {...card}
+            index={index}
+            isPositionFixed
+            onClickCard={handleClickMyCard}
+          />
         ))}
         {emptySlots.map((_, index) => (
           <EmptySlot key={index + chosenCards.length} isPositionFixed />

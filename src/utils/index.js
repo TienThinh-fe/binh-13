@@ -81,6 +81,21 @@ export const choseACard = (cards, chosenCard) => {
   return newCards
 }
 
+export const unChoseACard = (cards, chosenCard) => {
+  // make isChosen false for chosenCard
+  const newCards = cards.map((card) => {
+    if (card.name === chosenCard.name) {
+      return {
+        ...card,
+        isChosen: false,
+      }
+    }
+    return card
+  })
+
+  return newCards
+}
+
 export const getOpponentCards = (playerId, playersHand) => {
   if (isEmpty(playersHand) || isEmpty(playerId)) return []
 
