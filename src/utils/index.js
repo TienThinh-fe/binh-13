@@ -32,7 +32,7 @@ export const getCardsSrc = () => {
   const cardSrc = []
   cards.forEach((card) => {
     cardSrc.push({
-      src: `src/assets/cards/${card}.png`,
+      src: `assets/cards/${card}.png`,
       name: card,
       prefix: card.split('-')[0],
       suffix: card.split('-')[1],

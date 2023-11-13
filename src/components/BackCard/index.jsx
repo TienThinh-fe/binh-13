@@ -26,7 +26,7 @@ const BackCard = ({ isCenter, isPositionFixed = false, index }) => {
       isCenter={isCenter}
       isPositionFixed={isPositionFixed}
     >
-      <Image src="src/assets/cards/BACK.png" />
+      <Image src="assets/cards/BACK.png" />
     </Wrapper>
   )
 }
