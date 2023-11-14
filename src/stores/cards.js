@@ -5,6 +5,10 @@ export const useCardStore = create((set) => ({
   myCards: shuffleCards(),
   setMyCards: (myCards) => set({ myCards }),
 
-  chosenCards: [],
+  chosenCards: {
+    first: [],
+    second: [],
+    third: [],
+  },
   setChosenCards: (chosenCards) => set({ chosenCards }),
 }))

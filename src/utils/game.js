@@ -15,16 +15,39 @@ function convertCard(card) {
   return prefix + suffix
 }
 
-function determineWinner(player1, player2) {
+export const compareTwoHands = (firstHand, secondHand) => {
+  const firstHandRank = Hand.solve(firstHand.map(convertCard)).rank
+  const secondHandRank = Hand.solve(secondHand.map(convertCard)).rank
+  // const thirdHandRank = Hand.solve(thirdHand.map(convertCard)).rank
+
+  if (firstHandRank < secondHandRank) {
+    return false
+  }
+
+  return true
+}
+
+export const determineWinner = (player1, player2) => {
   const playerId1 = Object.keys(player1)[0]
   const playerId2 = Object.keys(player2)[0]
 
-  const hand1 = Hand.solve(player1[playerId1].map(convertCard))
-  const hand2 = Hand.solve(player2[playerId2].map(convertCard))
+  const player1Hand1 = Hand.solve(player1[playerId1].first.map(convertCard))
+  const player1Hand2 = Hand.solve(player1[playerId1].second.map(convertCard))
 
-  const winners = Hand.winners([hand1, hand2])
+  const player2Hand1 = Hand.solve(player2[playerId2].first.map(convertCard))
+  const player2Hand2 = Hand.solve(player2[playerId2].second.map(convertCard))
 
-  return winners.includes(hand1) ? playerId1 : playerId2
+  const hand1 = Hand.winners([player1Hand1, player2Hand1])
+  const hand2 = Hand.winners([player1Hand2, player2Hand2])
+
+  const score1 = hand1[0].rank
+  const score2 = hand2[0].rank
+
+  if (score1 < score2) {
+    return playerId1
+  } else if (score1 > score2) {
+    return playerId2
+  } else {
+    return 'draw'
+  }
 }
-
-export default determineWinner

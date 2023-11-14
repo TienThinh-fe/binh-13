@@ -37,11 +37,26 @@ const MyCards = () => {
   }, [])
 
   const handleClickCard = (card) => {
-    if (chosenCards.length < 5) {
-      const cards = [...chosenCards, card]
-      setChosenCards(cards)
-      const newMyCards = choseACard(myCards, card)
-      setMyCards(newMyCards)
+    const firstLength = chosenCards.first.length
+    const secondLength = chosenCards.second.length
+
+    if (firstLength === 5 && secondLength === 5) return
+
+    const newMyCards = choseACard(myCards, card)
+    setMyCards(newMyCards)
+
+    if (firstLength < 5) {
+      const newChosenCards = {
+        ...chosenCards,
+        first: [...chosenCards.first, card],
+      }
+      setChosenCards(newChosenCards)
+    } else if (secondLength < 5) {
+      const newChosenCards = {
+        ...chosenCards,
+        second: [...chosenCards.second, card],
+      }
+      setChosenCards(newChosenCards)
     }
   }
 

@@ -110,3 +110,35 @@ export const getOpponentCards = (playerId, playersHand) => {
 
   return opponentCards
 }
+
+export const resetMyCards = (myCards) => {
+  // make isChosen false for all cards
+  const newCards = myCards.map((card) => ({
+    ...card,
+    isChosen: false,
+  }))
+
+  return newCards
+}
+
+export const checkHaveInvalidHand = (playersHand) => {
+  let isInvalid = false
+
+  const id = Object.keys(playersHand)[0]
+
+  if (playersHand[id].first.length < 5 || playersHand[id].second.length < 5) {
+    isInvalid = true
+  }
+
+  return isInvalid
+}
+
+export const checkTwoPlayersReady = (playersReady) => {
+  let count = 0
+
+  playersReady.forEach((ready) => {
+    if (ready) count += 1
+  })
+
+  return count === 2
+}
